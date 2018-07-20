@@ -12,8 +12,10 @@ import egovframework.survey.comn.login.service.CustomUserDetail;
 @Controller
 public class LoginController {
 	
+	//sss
 	@RequestMapping(value = "/login/view.do")
 	public String loginview() {
+		System.out.println("test");
 		return "/login/view";
 	}
 	
