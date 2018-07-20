@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+	
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/survey/**" access="hasRole('ROLE_USER')"/>
+		
+		<security:form-login
+			login-page="/login/view.do"
+			login-processing-url="/login/process.do"
+			username-parameter="id"
+			password-parameter="pwd"
+			default-target-url="/login/session.do"
+			authentication-failure-url="/login/view.do"
+		/>
+		
+		<security:logout
+			invalidate-session="true"
+			logout-url="/login/out.do"
+			logout-success-url="/login/view.do"
+		/>
+		<security:csrf disabled="true"/>
+		
+	 	<security:session-management>
+			<security:concurrency-control max-sessions="1"
+							error-if-maximum-exceeded="true"/>
+		</security:session-management> 
+	
+	</security:http>
+   
+    <bean id="customAuthenticationProvider" class="egovframework.survey.comn.login.service.CustomAuthenticationProvider"/> 
+   
+    <security:authentication-manager>
+    	<security:authentication-provider ref="customAuthenticationProvider"/>
+    </security:authentication-manager>
+     
+
+	<!-- <bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/> -->
+	
+	
+</beans>
