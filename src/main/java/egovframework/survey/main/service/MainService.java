@@ -1,9 +1,21 @@
 package egovframework.survey.main.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public interface MainService {
+import egovframework.survey.main.dao.MainDAO;
+
+@Service("mainService")
+public class MainService implements IMainService {
 	
-	public String selectNow();
+	
+	@Autowired
+	public MainDAO mainMapper;
+	
+	@Override
+	public String selectNow() {
+		String now = mainMapper.now();
+		return now;
+	}
+
 }
