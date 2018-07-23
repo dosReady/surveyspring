@@ -16,6 +16,7 @@ public class MainController {
 	
 	@RequestMapping(value ="/survey/index.do")
 	public String index(ModelMap model){
+		
 		return "/main/content1";
 	}
 	
