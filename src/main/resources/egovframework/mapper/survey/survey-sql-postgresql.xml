@@ -5,7 +5,26 @@
 	
 	<insert id="insert" parameterType="egovMap">
 		<![CDATA[
-		SELECT now() as dt
+			INSERT INTO pg1.tn_survey_mt(
+				survey_mt_id,
+				survey_categryid,
+				survey_tmplt_id,
+				survey_mt_nm,
+				reg_dt,
+				mod_dt,
+				published_dt,
+				expired_dt
+				)
+            VALUES(
+            	nextval('seq_survey_mt'),
+            	nvl(#{surveyCategryId},0),
+            	nvl(#{surveyTmpltId},0),
+            	#{surveyMtNm},
+            	CURRENT_TIMESTAMP,
+            	CURRENT_TIMESTAMP,
+            	#{publishedDt},
+            	#{expiredDt}
+            	);
 		]]>
 	</insert>
 

@@ -12,6 +12,7 @@
 </head>
 
 <script src='<c:url value="/js/vue.js"/>'></script>
+<script  src="<c:url value='/js/vueMixin.js'/>"></script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
