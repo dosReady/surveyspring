@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.rte.psl.dataaccess.util.EgovMap;
@@ -21,7 +22,8 @@ public class LoginController extends CommonController {
 	@RequestMapping(value = "/login/view.do")
 	public String view(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
 		
-		if(session.isNew()){
+		String id = (String) session.getAttribute("id");
+		if(!StringUtils.isEmpty(id)){
 			return "forward:/survey/view.do";
 		}
 		return "/sym/login/view";
@@ -53,8 +55,8 @@ public class LoginController extends CommonController {
 		CustomUserDetail usrVO = 
 				(CustomUserDetail) SecurityContextHolder.getContext().getAuthentication().getDetails();
 		EgovMap egovMap = usrVO.getEgovMap();
-		session.setAttribute("id", egovMap.get("usrId"));
-		session.setAttribute("role", egovMap.get("usrRole"));
+		session.setAttribute("id", egovMap.get("userId"));
+		session.setAttribute("role", egovMap.get("userRole"));
 	}
 	
 	

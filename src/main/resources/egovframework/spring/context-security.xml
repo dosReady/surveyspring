@@ -20,7 +20,7 @@
 		
 		<security:logout
 			invalidate-session="true"
-			logout-url="/login/action.do?type=logout"
+			logout-url="/login/out.do"
 			logout-success-url="/login/view.do"
 		/>
 		<security:csrf disabled="true"/>
