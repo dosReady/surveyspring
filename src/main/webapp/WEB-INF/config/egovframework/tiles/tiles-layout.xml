@@ -10,10 +10,9 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/egovframework/tiles/footer.jsp" />
     </definition>
     
-    <definition name="/*/*"  extends="default">
-        <put-attribute name="content"    value="/WEB-INF/jsp/egovframework/survey/{1}/{2}.jsp"/>
+    <definition name="/*/*/*"  extends="default">
+        <put-attribute name="content"    value="/WEB-INF/jsp/egovframework/{1}/{2}/{3}.jsp"/>
     </definition>
-     
      
 </tiles-definitions>
 
