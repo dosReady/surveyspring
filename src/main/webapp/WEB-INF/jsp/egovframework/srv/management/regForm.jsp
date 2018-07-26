@@ -36,18 +36,18 @@
 
 <script type="text/javascript">
 	function goList() {
-		location.href="<c:url value='/survey/management.do'/>"
+		location.href="<c:url value='/survey/management/list.do'/>"
 	}
 	
 	var buttonObj1 = {
 		el : "#form-group-button",
 		data : { 
 			request :{				
-				url : "<c:url value='/survey/reg.do'/>",
-				method : "GET",
+				url : "<c:url value='/action/management/test.do'/>",
+				method : "POST",
 				dataType : "json",
 				data : {
-					val1 : "값"
+					data : "data"	
 				}
 			}			
 		}

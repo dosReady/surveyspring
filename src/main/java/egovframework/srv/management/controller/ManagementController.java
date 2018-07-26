@@ -2,36 +2,28 @@ package egovframework.srv.management.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dosframework.invoker.CommonController;
 import egovframework.srv.management.service.ManagementService;
 
-@Controller
-public class ManagementController {
+public class ManagementController extends CommonController {
 	
 	@Autowired
 	public ManagementService service;
 	
-	@RequestMapping(value="/survey/management.do")
-	public String index() throws Exception{
-		return "/management/index";
-	}
+	public void list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	
-	@RequestMapping(value="/survey/regForm.do")
-	public String regForm() throws Exception{
-		return "/management/regForm";
-	}
+	public void regForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	
-	@RequestMapping(value="/survey/reg.do" )
-	public@ResponseBody String regSruvey(@RequestBody String val1, HttpServletRequest request,HttpServletResponse response) throws Exception{
-		System.out.println(val1);
+	public String test(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
+		System.out.println("qwewqe");
 		return "{}";
 	}
+	
 	
 }

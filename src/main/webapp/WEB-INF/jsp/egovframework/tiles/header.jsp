@@ -9,7 +9,7 @@
 
 <div>
 	<ul>
-			<li><a href="<c:url value='/survey/management.do'/>">설문지관리</a></li>
+			<li><a href="<c:url value='/survey/management/list.do'/>">설문지관리</a></li>
 			<li><a href="<c:url value='/survey/userList.do'/>">사용자목록</a></li>
 	</ul>
 </div>

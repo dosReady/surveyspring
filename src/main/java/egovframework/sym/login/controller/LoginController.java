@@ -11,14 +11,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import egovframework.rte.psl.dataaccess.util.EgovMap;
-import egovframework.sym.common.helper.CommonController;
-import egovframework.sym.common.helper.ICommonController;
 import egovframework.sym.login.service.CustomUserDetail;
 
 @Controller
-public class LoginController extends CommonController {
+public class LoginController{
 
-	@Override
 	@RequestMapping(value = "/login/view.do")
 	public String view(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
 		
@@ -30,7 +27,6 @@ public class LoginController extends CommonController {
 		
 	}
 
-	@Override
 	@RequestMapping(value = "/login/action.do")
 	public String action(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
 		String type= request.getParameter("type");

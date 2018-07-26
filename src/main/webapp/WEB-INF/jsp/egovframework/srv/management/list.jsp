@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	function goReg(){
-		location.href="<c:url value='/survey/regForm.do'/>"
+		location.href="<c:url value='/survey/management/goRegForm.do'/>"
 	}
 	
 	function goDel(){
