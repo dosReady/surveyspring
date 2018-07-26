@@ -35,5 +35,9 @@
  	<bean class="egovframework.rte.psl.dataaccess.mapper.MapperConfigurer">
 		<property name="basePackage" value="egovframework" />
 	</bean>
-
+	
+	<bean class="dosframework.bean.ActionMappingFactoryBean">
+		<property name="datasource" ref="dataSource"/>
+	</bean>
+	
 </beans>
