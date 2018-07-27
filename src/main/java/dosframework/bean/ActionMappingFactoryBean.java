@@ -4,16 +4,19 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class ActionMappingFactoryBean {
+	
+	private Logger log = LogManager.getLogger(ActionMappingFactoryBean.class);
 	
 	@Autowired
 	private XmlWebApplicationContext context;
@@ -41,7 +44,9 @@ public class ActionMappingFactoryBean {
 	
 	@PostConstruct
 	public void init(){
-		System.out.println("action mapping create bean");
+		
+		log.debug("### ActionMapping Loading ###");
+		
 		Connection conn = null;
 		Statement st = null;
 		try {
@@ -61,13 +66,11 @@ public class ActionMappingFactoryBean {
 				actionBean.setActionType(rs.getString("ACTION_TYPE"));
 				
 				beanFactory.registerSingleton(actionBean.getActionId(), actionBean);
-			}
-			
-			Iterator<String> iterator = beanFactory.getBeanNamesIterator();
-			while (iterator.hasNext()) {
-				System.out.println(iterator.next());
+				log.debug("### Register BeanName : "+ actionBean.getActionId());
 				
 			}
+			
+			log.debug("### ActionMapping Loading ###");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

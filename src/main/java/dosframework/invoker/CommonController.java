@@ -10,14 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.XmlWebApplicationContext;
-import org.springframework.web.servlet.ModelAndView;
 
 import dosframework.bean.ActionMappingBean;
-import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 @Controller
 public class CommonController{
