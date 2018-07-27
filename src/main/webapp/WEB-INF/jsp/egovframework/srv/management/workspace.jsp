@@ -12,24 +12,7 @@
 
 </div>
 
-<script>
+<script src="<c:url value='/js/survey/tool/component.js'/>"></script>
 
 	
-	var textType = {
-		template : '<h1> 텍스트타입 </h1>'
-	};
-	
-	
-	var selectType = {
-		template : '<h1> 선택 타입</h1>'
-	};
-	
-	new Vue({
-		el : '#tool-container',
-		components : {
-			'select-type' : selectType,
-			'text-type' : textType
-		}
-	});
 
-</script>
