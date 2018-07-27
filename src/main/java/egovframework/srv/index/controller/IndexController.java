@@ -10,14 +10,13 @@ import org.springframework.ui.Model;
 import dosframework.invoker.CommonController;
 import egovframework.srv.index.service.IndexService;
 
-public class IndexController extends CommonController{
+
+public class IndexController{
 	
 	
 	@Autowired
 	public IndexService service;
 	
-	public void view(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
-		System.out.println("qwewqe");
-	}
+	public void view(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	
 }

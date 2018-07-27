@@ -6,24 +6,27 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import dosframework.invoker.CommonController;
 import egovframework.srv.management.service.ManagementService;
 
-public class ManagementController extends CommonController {
+public class ManagementController{
 	
 	@Autowired
 	public ManagementService service;
 	
+	
+	// VIEW 
 	public void list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
-	
 	public void regForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
+	public void goWorkspace(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
+	public void regToolForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	
-	public String test(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {
-		System.out.println("qwewqe");
-		return "{}";
-	}
+	
+	
+	
+	
+	
 	
 	
 }

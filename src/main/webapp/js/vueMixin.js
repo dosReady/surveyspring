@@ -1,10 +1,12 @@
 
 var mixin = {
 		ajax : {
-			data : {
-				error:0,
-				loading:true,
-				result:[]
+			data : function(){
+				return {
+					error:0,
+					loading:true,
+					result:[]
+				}
 			},
 			methods :{
 				getData : function(){

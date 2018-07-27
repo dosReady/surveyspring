@@ -9,6 +9,9 @@
         <Logger name="java.sql" level="INFO" additivity="false">
             <AppenderRef ref="console" />
         </Logger>
+        <Logger name="dosframework" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+        </Logger>
         <Logger name="egovframework" level="DEBUG" additivity="false">
             <AppenderRef ref="console" />
         </Logger>
