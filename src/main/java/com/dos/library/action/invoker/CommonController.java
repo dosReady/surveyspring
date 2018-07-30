@@ -1,4 +1,4 @@
-package dosframework.invoker;
+package com.dos.library.action.invoker;
 
 import java.lang.reflect.Method;
 
@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
-import dosframework.bean.ActionMappingBean;
+import com.dos.library.action.bean.ActionMappingBean;
 
 @Controller
 public class CommonController{

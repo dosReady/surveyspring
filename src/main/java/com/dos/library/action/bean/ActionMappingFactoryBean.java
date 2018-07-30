@@ -1,4 +1,4 @@
-package dosframework.bean;
+package com.dos.library.action.bean;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

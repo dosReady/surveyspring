@@ -36,7 +36,7 @@
 		<property name="basePackage" value="egovframework" />
 	</bean>
 	
-	<bean class="dosframework.bean.ActionMappingFactoryBean">
+	<bean class="com.dos.library.action.bean.ActionMappingFactoryBean">
 		<property name="datasource" ref="dataSource"/>
 	</bean>
 	
