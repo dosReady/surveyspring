@@ -7,7 +7,6 @@
 	
 	
 	<security:http use-expressions="true" authentication-manager-ref="authManager">
-		<security:intercept-url pattern="/**" access="hasIpAddress('127.0.0.1/32')"/>
 		<security:intercept-url pattern="/login/view.do" access="permitAll"/>
 		<security:intercept-url pattern="/survey/index.do" access="hasRole('ROLE_USER')"/>
 		<security:form-login
