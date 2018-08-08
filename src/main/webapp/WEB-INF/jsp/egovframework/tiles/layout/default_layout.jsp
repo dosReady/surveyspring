@@ -10,9 +10,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>기본 레이아웃 </title>
 </head>
-
-<script src='<c:url value="/js/vue.js"/>'></script>
-<script  src="<c:url value='/js/vueMixin.js'/>"></script>
 <style>
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
@@ -22,7 +19,8 @@ body {
 
 #content {
 	background-color: white;
-	height: 300px;
+	overflow:hidden;
+	height: auto;
 }
 </style>
 

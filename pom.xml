@@ -4,7 +4,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>dos</groupId>
 	<artifactId>pg1</artifactId>
-	<packaging>war</packaging>
 	<version>1.0.0</version>
 	<name>pg1</name>
 	<url>http://www.egovframe.go.kr</url>

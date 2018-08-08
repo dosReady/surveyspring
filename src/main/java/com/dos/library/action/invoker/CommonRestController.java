@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
@@ -24,8 +25,7 @@ public class CommonRestController{
 	private XmlWebApplicationContext context;
 	
 	@RequestMapping(value = "/action/**")
-	@ResponseBody
-	public String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session, @RequestBody Model model) {
+	public @ResponseBody String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
 		
 		String actionId = request.getServletPath();
 		
