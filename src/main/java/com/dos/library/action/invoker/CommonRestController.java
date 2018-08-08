@@ -12,11 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.dos.library.action.bean.ActionMappingBean;
+
+import egovframework.rte.psl.dataaccess.util.EgovMap;
 
 @Controller
 public class CommonRestController{
@@ -25,7 +26,7 @@ public class CommonRestController{
 	private XmlWebApplicationContext context;
 	
 	@RequestMapping(value = "/action/**")
-	public @ResponseBody String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+	public @ResponseBody String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session,@RequestBody EgovMap map) {
 		
 		String actionId = request.getServletPath();
 		
@@ -40,9 +41,9 @@ public class CommonRestController{
 			
 			Class<?> loadClass = Class.forName(classNm);
 			Object instance = loadClass.newInstance();
-			Class<?>[] paramClassType = new Class[] {HttpServletRequest.class, HttpServletResponse.class,HttpSession.class, Model.class};
+			Class<?>[] paramClassType = new Class[] {HttpServletRequest.class, HttpServletResponse.class,HttpSession.class, EgovMap.class};
 			Method method = loadClass.getMethod(classMethod,paramClassType);
-			Object[] param = new Object[] {request, response,session,model};
+			Object[] param = new Object[] {request, response,session,map};
 			
 			view = (String) method.invoke(instance,param);
 			

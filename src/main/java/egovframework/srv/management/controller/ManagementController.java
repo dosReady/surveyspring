@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
+import egovframework.rte.psl.dataaccess.util.EgovMap;
 import egovframework.srv.management.service.ManagementService;
 
 public class ManagementController{
@@ -16,7 +17,9 @@ public class ManagementController{
 	
 	
 	// VIEW 
-	public void list(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
+	public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {
+		return"결과";
+	}
 	public void regForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	public void goWorkspace(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
 	public void regToolForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
