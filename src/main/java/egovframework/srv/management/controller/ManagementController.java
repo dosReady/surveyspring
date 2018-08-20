@@ -20,9 +20,12 @@ public class ManagementController{
 	public String list(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {
 		return"결과";
 	}
-	public void regForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
-	public void goWorkspace(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
-	public void regToolForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) throws Exception {}
+	
+	public String createSurveyTmplt(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap mapl) throws Exception {
+		return "SUCCESS";
+	}
+	public void goWorkspace(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {}
+	public void regToolForm(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {}
 	
 	
 	

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,7 +25,8 @@ public class CommonRestController{
 	private XmlWebApplicationContext context;
 	
 	@RequestMapping(value = "/action/**")
-	public @ResponseBody String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session,@RequestBody EgovMap map) {
+	@ResponseBody
+	public String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session,@RequestBody(required=false) EgovMap map) {
 		
 		String actionId = request.getServletPath();
 		
