@@ -9,9 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.support.XmlWebApplicationContext;
 
 import com.dos.library.action.bean.ActionMappingBean;
@@ -26,8 +29,7 @@ public class CommonRestController{
 	
 	@RequestMapping(value = "/action/**")
 	@ResponseBody
-	public String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session,@RequestBody(required=false) EgovMap map) {
-		
+	public String ajaxCall(HttpServletRequest request, HttpServletResponse response,HttpSession session, @RequestBody(required=false) EgovMap map) {
 		String actionId = request.getServletPath();
 		
 		ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
