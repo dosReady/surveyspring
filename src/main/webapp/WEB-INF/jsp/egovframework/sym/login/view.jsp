@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h1>로그인</h1>
-<form action='<c:url value="/login/process.do"/>' method="post">
+<form action='<c:url value="/login/process"/>' method="post">
 	<table>
 	  <tr>
 	    <th>아이디</th>

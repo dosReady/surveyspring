@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:if test="${sessionScope.id ne null }">
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="details" var="map"/>
+<c:if test="${map ne null }">
 <div>
-<h1>로그인 : ${sessionScope.id} <a href="<c:url value='/login/out.do'/>">로그아웃</a></h1> 
+<h1>로그인 : ${map} <a href="<c:url value='/login/out'/>">로그아웃</a></h1> 
 </div>
 <%-- 
 <div>

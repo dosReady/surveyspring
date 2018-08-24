@@ -7,21 +7,21 @@
 	
 	
 	<security:http use-expressions="true" authentication-manager-ref="authManager">
-		<security:intercept-url pattern="/login/view.do" access="permitAll"/>
-		<security:intercept-url pattern="/survey/index.do" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/login/view" access="permitAll"/>
+		<security:intercept-url pattern="/survey/**" access="hasRole('ROLE_USER')"/>
 		<security:form-login
-			login-page="/login/view.do"
-			login-processing-url="/login/process.do"
+			login-page="/login/view"
+			login-processing-url="/login/process"
 			username-parameter="id"
 			password-parameter="pwd"
-			default-target-url="/login/action.do?type=session"
-			authentication-failure-url="/login/view.do"
+			default-target-url="/login/setSession"
+			authentication-failure-url="/login/view"
 		/>
 		
 		<security:logout
 			invalidate-session="true"
-			logout-url="/login/out.do"
-			logout-success-url="/login/view.do"
+			logout-url="/login/out"
+			logout-success-url="/login/view"
 		/>
 		<security:csrf disabled="true"/>
 		

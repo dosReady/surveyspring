@@ -22,6 +22,7 @@ public class ManagementController{
 	}
 	
 	public String createSurveyTmplt(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {
+		System.out.println(map.get("value"));
 		return "SUCCESS";
 	}
 	public void goWorkspace(HttpServletRequest request, HttpServletResponse response, HttpSession session, EgovMap map) throws Exception {}
