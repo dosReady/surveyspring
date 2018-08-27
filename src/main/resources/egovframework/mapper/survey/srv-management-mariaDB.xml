@@ -3,32 +3,71 @@
 <mapper namespace="egovframework.srv.management.dao.ManagementDAO"> 
 
 	
-	<insert id="insert" parameterType="egovMap">
+	<insert id="insert" parameterType="hashmap">
 		<![CDATA[
+		    /* ManagementDAO.insert */
 			INSERT INTO TN_SRV_MSTR(
-				CAT_MSTR_ID, 
-				TMP_MSTR_ID, 
-				SRV_MST_NM,
-				INST_DT,
-				UPDT_DT,
-				PBSH_DT,
-				EXPR_DT,
-				INST_USRID,
-				UPDT_USRID
-			)
+						 TMP_MSTR_ID, 
+						 SRV_MST_NM, 
+						 SRV_MST_TG, 
+						 SRV_MST_DC, 
+						 SRV_MST_ITEMS, 
+						 PBSH_DT, 
+						 EXPR_DT, 
+						 INST_USRID, 
+						 UPDT_USRID
+						 )
 			VALUES(
-				0,
-				0,
-				#{srvMstNm},
-				CURRENT_TIMESTAMP,
-				CURRENT_TIMESTAMP,
-				#{pbShDt},
-				#{exprDt},
-				#{instUsrId},
-				#{instUsrId}
-			)
+						0, 															 				/* TMP_MSTR_ID */
+						#{srvMstNm},															/* SRV_MST_NM */
+						#{srvMstTg}, 															/* SRV_MST_TG */
+						#{srvMstDc}, 															/* SRV_MST_DC */
+						COLUMN_CREATE('srvMstItems',#{srvMstItems}),															/* SRV_MST_ITEMS */
+						CURRENT_TIMESTAMP,  											/* PBSH_DT */
+						CURRENT_TIMESTAMP, 											/* EXPR_DT */
+						#{instUsrId}, 																/* INST_USRID */
+						#{updtUsrId} 															/* UPDT_USRID */
+					) 
 		]]>
 	</insert>
+	
+	<select  id="select"  resultType="egovMap">
+		<![CDATA[
+		    /* ManagementDAO.select */
+			SELECT 
+				 SRV_MSTR_ID, 
+				 TMP_MSTR_ID, 
+				 SRV_MST_NM, 
+				 SRV_MST_TG, 
+				 SRV_MST_DC, 
+				 COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, 
+				 PBSH_DT, 
+				 EXPR_DT, 
+				 INST_USRID, 
+				 UPDT_USRID
+			 FROM TN_SRV_MSTR
+			WHERE 1=1
+			AND SRV_MSTR_ID = #{value} 
+		]]>
+	</select>
+	
+	<select  id="list"  resultType="egovMap">
+		<![CDATA[
+		    /* ManagementDAO.selectAll */
+			SELECT 
+				 SRV_MSTR_ID, 
+				 TMP_MSTR_ID, 
+				 SRV_MST_NM, 
+				 SRV_MST_TG, 
+				 SRV_MST_DC, 
+				 /* COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, */ 
+				 PBSH_DT, 
+				 EXPR_DT, 
+				 INST_USRID, 
+				 UPDT_USRID
+			FROM TN_SRV_MSTR;
+		]]>
+	</select>
 
 </mapper>
 

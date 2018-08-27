@@ -11,7 +11,7 @@
 	<mvc:resources mapping="/images/**" location="/images/"/>
 	
 	
-	<context:component-scan base-package="egovframework,com.dos.library" />
+	<context:component-scan base-package="egovframework" />
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>
