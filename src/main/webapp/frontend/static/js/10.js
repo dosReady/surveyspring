@@ -1,0 +1,2 @@
+webpackJsonp([10],{"cS1+":function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){this.$createElement;this._self._c;return this._m(0)},staticRenderFns:[function(){var e=this.$createElement,t=this._self._c||e;return t("ul",[t("li",[t("input",{attrs:{type:"radio",name:"input-radio"}})])])}]};var i=n("VU/8")({name:"TextAnswer"},r,!1,function(e){n("yAW+")},"data-v-01605219",null);t.default=i.exports},"yAW+":function(e,t){}});
+//# sourceMappingURL=10.js.map

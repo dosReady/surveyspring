@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="egovframework.srv.management.dao.ManagementDAO"> 
+<mapper namespace="egovframework.srv.management.dao.IManagementDAO"> 
 
 	
 	<insert id="insert" parameterType="hashmap">
@@ -30,6 +30,31 @@
 					) 
 		]]>
 	</insert>
+	
+	<update id="update" parameterType="hashmap">
+		<![CDATA[
+		    /* ManagementDAO.update */
+			UPDATE TN_SRV_MSTR	
+				SET 
+					TMP_MSTR_ID 		= 			#{tmpMstrId},
+				    SRV_MST_NM 		= 			#{srvMstNm},
+				    SRV_MST_TG 		= 			#{srvMstTg},
+				    SRV_MST_DC 		= 			#{srvMstDc},
+				    SRV_MST_ITEMS 	= 			COLUMN_CREATE('srvMstItems',#{srvMstItems}),
+				    PBSH_DT				= 			#{pbshDt},
+				    EXPR_DT 				= 			#{exprDt},
+				    UPDT_USRID 		= 			#{updtUsrid}
+			WHERE 1=1
+			  AND SRV_MSTR_ID 	= 			#{srvMstrId}
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="hashmap">
+		<![CDATA[
+		    /* ManagementDAO.delete */
+			DELETE FROM TN_SRV_MSTR WHERE SRV_MSTR_ID 	=	#{srvMstrId}
+		]]>
+	</delete>
 	
 	<select  id="select"  resultType="egovMap">
 		<![CDATA[

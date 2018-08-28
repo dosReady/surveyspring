@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="egovframework.srv.response.dao.IResponseDAO"> 
+	
+	<select  id="showSurvey"  parameterType="hashmap" resultType="egovMap">
+		<![CDATA[
+		    /* ResponseDAO.showSurvey */
+			SELECT 
+				 SRV_MSTR_ID, 
+				 TMP_MSTR_ID, 
+				 SRV_MST_NM, 
+				 SRV_MST_TG, 
+				 SRV_MST_DC, 
+				 COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, 
+				 PBSH_DT, 
+				 EXPR_DT, 
+				 INST_USRID, 
+				 UPDT_USRID
+			 FROM TN_SRV_MSTR
+			WHERE 1=1
+			AND SRV_MSTR_ID = #{value} 
+		]]>
+	</select>
+	
+	<insert id="insert" parameterType="hashmap">
+		<![CDATA[
+		    /* ResponseDAO.insert */
+			INSERT INTO TN_SRV_RESPNS (
+			      SRV_MSTR_ID,
+			      SRV_RESPNS_JSON,
+			      INST_DT,
+			      UPDT_DT,
+			      INST_USRID)
+			VALUES (
+			      #{srvMstrId},
+			      COLUMN_CREATE('srvRespnsJson',#{srvRespnsJson}),
+			      CURRENT_TIMESTAMP,
+			      CURRENT_TIMESTAMP,
+			      #{instUsrid}
+			      )
+		]]>
+	</insert>
+	
+
+</mapper>
+

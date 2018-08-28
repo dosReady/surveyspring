@@ -28,20 +28,28 @@ public class ManagementController{
 		return "SUCCESS";
 	}
 	
-	@RequestMapping(value="/detail")
+	@RequestMapping(value="/update")
+	public String update(@RequestBody Map<String,Object> map) throws Exception {
+		service.update(map);
+		return "SUCCESS";
+	}
+	
+	@RequestMapping(value="/delete")
+	public String delete(@RequestBody(required=false) Map<String,Object> map) throws Exception {
+		service.delete(map);
+		return "SUCCESS";
+	}
+	
+	@RequestMapping(value={"/detail","/modify"})
 	public String detail(@RequestBody(required=false) Map<String,Object> map) throws Exception {
-		String result = null;
 		EgovMap detail = service.select(map);
-		result= mapper.writeValueAsString(detail);
-		return result;
+		return mapper.writeValueAsString(detail);
 	}
 	
 	@RequestMapping(value="/list")
 	public String list(@RequestBody(required=false) Map<String,Object> map) throws Exception {
-		String result = null;
 		List<EgovMap> list = service.list(map);
-		result= mapper.writeValueAsString(list);
-		return result;
+		return mapper.writeValueAsString(list);
 	}
 	
 	
