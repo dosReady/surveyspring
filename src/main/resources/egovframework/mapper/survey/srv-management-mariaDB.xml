@@ -1,73 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="egovframework.srv.management.dao.IManagementDAO"> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.srv.management.dao.IManagementDAO">
 
-	
-	<insert id="insert" parameterType="hashmap">
+	<!-- 설문지 관리테이블 TN_SRV_MSTR -->
+	<select id="selectSrvMstr" resultType="egovMap">
 		<![CDATA[
-		    /* ManagementDAO.insert */
-			INSERT INTO TN_SRV_MSTR(
-						 TMP_MSTR_ID, 
-						 SRV_MST_NM, 
-						 SRV_MST_TG, 
-						 SRV_MST_DC, 
-						 SRV_MST_ITEMS, 
-						 PBSH_DT, 
-						 EXPR_DT, 
-						 INST_USRID, 
-						 UPDT_USRID
-						 )
-			VALUES(
-						0, 															 				/* TMP_MSTR_ID */
-						#{srvMstNm},															/* SRV_MST_NM */
-						#{srvMstTg}, 															/* SRV_MST_TG */
-						#{srvMstDc}, 															/* SRV_MST_DC */
-						COLUMN_CREATE('srvMstItems',#{srvMstItems}),															/* SRV_MST_ITEMS */
-						CURRENT_TIMESTAMP,  											/* PBSH_DT */
-						CURRENT_TIMESTAMP, 											/* EXPR_DT */
-						#{instUsrId}, 																/* INST_USRID */
-						#{updtUsrId} 															/* UPDT_USRID */
-					) 
-		]]>
-	</insert>
-	
-	<update id="update" parameterType="hashmap">
-		<![CDATA[
-		    /* ManagementDAO.update */
-			UPDATE TN_SRV_MSTR	
-				SET 
-					TMP_MSTR_ID 		= 			#{tmpMstrId},
-				    SRV_MST_NM 		= 			#{srvMstNm},
-				    SRV_MST_TG 		= 			#{srvMstTg},
-				    SRV_MST_DC 		= 			#{srvMstDc},
-				    SRV_MST_ITEMS 	= 			COLUMN_CREATE('srvMstItems',#{srvMstItems}),
-				    PBSH_DT				= 			#{pbshDt},
-				    EXPR_DT 				= 			#{exprDt},
-				    UPDT_USRID 		= 			#{updtUsrid}
-			WHERE 1=1
-			  AND SRV_MSTR_ID 	= 			#{srvMstrId}
-		]]>
-	</update>
-	
-	<delete id="delete" parameterType="hashmap">
-		<![CDATA[
-		    /* ManagementDAO.delete */
-			DELETE FROM TN_SRV_MSTR WHERE SRV_MSTR_ID 	=	#{srvMstrId}
-		]]>
-	</delete>
-	
-	<select  id="select"  resultType="egovMap">
-		<![CDATA[
-		    /* ManagementDAO.select */
+		    /* ManagementDAO.srvMstrSelect */
 			SELECT 
 				 SRV_MSTR_ID, 
-				 TMP_MSTR_ID, 
 				 SRV_MST_NM, 
 				 SRV_MST_TG, 
 				 SRV_MST_DC, 
-				 COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, 
-				 PBSH_DT, 
-				 EXPR_DT, 
+				 DATE_FORMAT(PBSH_DT, '%Y-%m-%d') AS PBSH_DT, 
+				 DATE_FORMAT(EXPR_DT, '%Y-%m-%d') AS EXPR_DT, 
 				 INST_USRID, 
 				 UPDT_USRID
 			 FROM TN_SRV_MSTR
@@ -75,24 +20,167 @@
 			AND SRV_MSTR_ID = #{value} 
 		]]>
 	</select>
-	
-	<select  id="list"  resultType="egovMap">
+
+	<select id="srvMstrList" resultType="egovMap">
 		<![CDATA[
-		    /* ManagementDAO.selectAll */
+		    /* ManagementDAO.srvMstrList */
 			SELECT 
 				 SRV_MSTR_ID, 
-				 TMP_MSTR_ID, 
 				 SRV_MST_NM, 
 				 SRV_MST_TG, 
 				 SRV_MST_DC, 
-				 /* COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, */ 
-				 PBSH_DT, 
-				 EXPR_DT, 
+				 DATE_FORMAT(PBSH_DT, '%Y-%m-%d') AS PBSH_DT, 
+				 DATE_FORMAT(EXPR_DT, '%Y-%m-%d') AS EXPR_DT, 
 				 INST_USRID, 
 				 UPDT_USRID
 			FROM TN_SRV_MSTR;
 		]]>
 	</select>
+
+	<insert id="insertSrvMstr" parameterType="hashmap" 
+						useGeneratedKeys="true"   keyProperty="srvMstrId">
+		<![CDATA[
+		    /* ManagementDAO.insertSrvMstr */
+			INSERT INTO TN_SRV_MSTR(
+						 SRV_MST_NM, 
+						 SRV_MST_TG, 
+						 SRV_MST_DC, 
+						 PBSH_DT, 
+						 EXPR_DT, 
+						 INST_USRID, 
+						 UPDT_USRID
+						 )
+			VALUES(
+						#{srvMstNm},															/* SRV_MST_NM */
+						#{srvMstTg}, 															/* SRV_MST_TG */
+						#{srvMstDc}, 															/* SRV_MST_DC */
+						CURRENT_TIMESTAMP,  											/* PBSH_DT */
+						CURRENT_TIMESTAMP, 											/* EXPR_DT */
+						#{instUsrId}, 																/* INST_USRID */
+						#{updtUsrId} 															/* UPDT_USRID */
+					) 
+		]]>
+	</insert>
+
+	<update id="updateSrvMstr" parameterType="hashmap">
+		<![CDATA[
+		    /* ManagementDAO.updateSrvMstr */
+			UPDATE TN_SRV_MSTR	
+				SET 
+				    SRV_MST_NM 		= 			#{srvMstNm},
+				    SRV_MST_TG 		= 			#{srvMstTg},
+				    SRV_MST_DC 		= 			#{srvMstDc},
+				    PBSH_DT				= 			#{pbshDt},
+				    EXPR_DT 				= 			#{exprDt},
+				    UPDT_DT 				= 			CURRENT_TIMESTAMP,
+				    UPDT_USRID 		= 			#{updtUsrid}
+			WHERE 1=1
+			  AND SRV_MSTR_ID 	= 			#{srvMstrId}
+		]]>
+	</update>
+
+	<delete id="deleteSrvMstr" parameterType="String">
+		<![CDATA[
+		    /* ManagementDAO.deleteSrvMstr */
+			DELETE FROM TN_SRV_MSTR WHERE SRV_MSTR_ID 	=	#{srvMstrId}
+		]]>
+	</delete>
+	<!-- 설문지 관리테이블 TN_SRV_MSTR -->
+
+
+	<!-- 설문지 응답관리테이블 TN_SRV_MTRITEMS, TN_SRV_ITEMS -->
+	<select id="selectSrvMtritems" resultType="egovMap">
+		<![CDATA[
+		  /* ManagementDAO.selectSrvMtritems */
+				SELECT 
+					        SRV_MTRITEMS_ID,
+					        SRV_MSTR_ID,
+					        SRV_MTRITEMS_TITLE,
+					        SRV_MTRITEMS_TYPE
+				  FROM TN_SRV_MTRITEMS 
+				 WHERE 1=1
+				      AND SRV_MSTR_ID = #{value}
+		]]>
+	</select>
+	
+	<select id="selectSrvItems" resultType="egovMap">
+		<![CDATA[
+		  /* ManagementDAO.selectSrvItems */
+				SELECT 
+					        SRV_ITEMS_ID,
+					        SRV_ITEM_IDX,
+					        SRV_ITEM_NM   
+				  FROM  TN_SRV_ITEMS
+				 WHERE 1=1
+				      AND SRV_MSTR_ID = #{srvMstrId}
+				      AND SRV_MTRITEMS_ID = #{srvMtritemsId}
+		]]>
+	</select>
+
+	<insert id="insertSrvMtritems" parameterType="hashmap" 
+						useGeneratedKeys="true"   keyProperty="srvMtritemsId">
+		<![CDATA[
+			/* ManagementDAO.insertSrvMtritems */
+			INSERT INTO TN_SRV_MTRITEMS
+			(
+				SRV_MSTR_ID,
+				SRV_MTRITEMS_TITLE,
+				SRV_MTRITEMS_TYPE,
+				INST_DT,
+				UPDT_DT
+			)
+			VALUES
+			(
+				#{srvMstrId}, 
+				#{srvMtritemsTitle},
+				#{srvMtritemsType},
+				CURRENT_TIMESTAMP,
+				CURRENT_TIMESTAMP
+			)
+		]]>
+	</insert>
+
+	<delete id="deleteSrvMtritems" parameterType="String">
+		<![CDATA[
+			/* ManagementDAO.deleteSrvMtritems */
+			DELETE FROM TN_SRV_MTRITEMS  
+			WHERE SRV_MSTR_ID=	#{srvMstrId}
+		]]>
+	</delete>
+
+	<insert id="insertSrvitems" parameterType="hashmap">
+		<![CDATA[
+			  /* ManagementDAO.insertSrvitems */
+				INSERT INTO TN_SRV_ITEMS
+				(
+					SRV_MSTR_ID,
+					SRV_MTRITEMS_ID,
+					SRV_ITEM_NM,
+					SRV_ITEM_IDX,
+					INST_DT,
+					UPDT_DT
+				)
+				VALUES
+				(
+					#{srvMstrId},
+					#{srvMtritemsId},
+					#{srvItemNm},
+					#{srvItemIdx},
+					CURRENT_TIMESTAMP,
+					CURRENT_TIMESTAMP
+				)
+		]]>
+	</insert>
+	
+	<delete id="deleteSrvItems" parameterType="String">
+		<![CDATA[
+			/* ManagementDAO.deleteSrvItems */
+			DELETE FROM TN_SRV_ITEMS
+			WHERE 1=1
+				AND SRV_MSTR_ID=				 	#{srvMstrId}
+		]]>
+	</delete>
+
 
 </mapper>
 

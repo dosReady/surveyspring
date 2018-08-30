@@ -8,6 +8,7 @@ import egovframework.sym.common.helper.ICommonDAO;
 
 @Mapper(value="egovframework.srv.response.dao.IResponseDAO")
 public interface IResponseDAO extends ICommonDAO {
-	public EgovMap showSurvey(Map<String,Object> map) throws Exception;
 	public void insert(Map<String,Object> map) throws Exception;
+	public void deleteRespnstt(Integer srvMstrId) throws Exception;
+	public void insertRespnstt(Integer srvMstrId) throws Exception;
 }

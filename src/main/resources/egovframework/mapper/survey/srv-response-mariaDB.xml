@@ -1,46 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
-<mapper namespace="egovframework.srv.response.dao.IResponseDAO"> 
-	
-	<select  id="showSurvey"  parameterType="hashmap" resultType="egovMap">
-		<![CDATA[
-		    /* ResponseDAO.showSurvey */
-			SELECT 
-				 SRV_MSTR_ID, 
-				 TMP_MSTR_ID, 
-				 SRV_MST_NM, 
-				 SRV_MST_TG, 
-				 SRV_MST_DC, 
-				 COLUMN_GET(SRV_MST_ITEMS,'srvMstItems' as char) as SRV_MST_ITEMS, 
-				 PBSH_DT, 
-				 EXPR_DT, 
-				 INST_USRID, 
-				 UPDT_USRID
-			 FROM TN_SRV_MSTR
-			WHERE 1=1
-			AND SRV_MSTR_ID = #{value} 
-		]]>
-	</select>
-	
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="egovframework.srv.response.dao.IResponseDAO">
+
 	<insert id="insert" parameterType="hashmap">
 		<![CDATA[
 		    /* ResponseDAO.insert */
 			INSERT INTO TN_SRV_RESPNS (
 			      SRV_MSTR_ID,
-			      SRV_RESPNS_JSON,
+			      SRV_MTRITEMS_ID,
+			      SRV_RESPNS_VALUE,
+			      SRV_RESPNS_CODE,
 			      INST_DT,
 			      UPDT_DT,
 			      INST_USRID)
 			VALUES (
 			      #{srvMstrId},
-			      COLUMN_CREATE('srvRespnsJson',#{srvRespnsJson}),
+			     #{srvMtritemsId},
+			     #{srvItem},
+			     IFNULL(#{srvRespnsCode},0),
 			      CURRENT_TIMESTAMP,
 			      CURRENT_TIMESTAMP,
 			      #{instUsrid}
 			      )
 		]]>
 	</insert>
-	
+
+
+	<insert id="insertRespnstt" parameterType="integer">
+		<![CDATA[
+			INSERT INTO TN_SRV_RESPNSTT
+		  (
+		 	   SRV_MSTR_ID,
+		 	   SRV_MTRITEMS_ID,
+		 	   SRV_RESPNS_VALUE,
+		 	   SRV_RESPNS_CODE,
+		 	   SRV_RESPNSTT_CNT,
+		 	   SRV_RESPNSTT_TOTAL
+		  )
+		SELECT 
+		       A.SRV_MSTR_ID,
+		       A.SRV_MTRITEMS_ID,
+		       A.SRV_RESPNS_VALUE,
+		       A.SRV_RESPNS_CODE,
+		       COUNT(*) AS SRV_RESPNSTT_CNT,
+		       ( SELECT COUNT(*) FROM TN_SRV_RESPNS WHERE SRV_MSTR_ID = A.SRV_MSTR_ID AND SRV_MTRITEMS_ID = A.SRV_MTRITEMS_ID) AS SRV_RESPNSTT_TOTAL
+		  FROM TN_SRV_RESPNS A
+		 WHERE 1=1
+		   AND A.SRV_MSTR_ID = #{srvMstrId}
+		GROUP BY A.SRV_MSTR_ID, A.SRV_MTRITEMS_ID, A.SRV_RESPNS_VALUE, A.SRV_RESPNS_CODE
+		]]>
+	</insert>
+
+	<delete id="deleteRespnstt" parameterType="integer">
+		<![CDATA[
+			DELETE FROM TN_SRV_RESPNSTT WHERE SRV_MSTR_ID = #{srvMstrId}
+		]]>
+	</delete>
+
+
+
 
 </mapper>
 

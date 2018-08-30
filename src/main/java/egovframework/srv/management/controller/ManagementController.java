@@ -24,31 +24,31 @@ public class ManagementController{
 	
 	@RequestMapping(value="/create")
 	public String create(@RequestBody Map<String,Object> map) throws Exception {
-		service.insert(map);
+		service.processCreate(map);
 		return "SUCCESS";
 	}
 	
 	@RequestMapping(value="/update")
 	public String update(@RequestBody Map<String,Object> map) throws Exception {
-		service.update(map);
+		service.processUpdate(map);
 		return "SUCCESS";
 	}
 	
 	@RequestMapping(value="/delete")
 	public String delete(@RequestBody(required=false) Map<String,Object> map) throws Exception {
-		service.delete(map);
+		service.processDelete(map);
 		return "SUCCESS";
 	}
 	
 	@RequestMapping(value={"/detail","/modify"})
 	public String detail(@RequestBody(required=false) Map<String,Object> map) throws Exception {
-		EgovMap detail = service.select(map);
+		EgovMap detail = service.getDetail(map);
 		return mapper.writeValueAsString(detail);
 	}
 	
 	@RequestMapping(value="/list")
 	public String list(@RequestBody(required=false) Map<String,Object> map) throws Exception {
-		List<EgovMap> list = service.list(map);
+		List<EgovMap> list = service.getList(map);
 		return mapper.writeValueAsString(list);
 	}
 	
