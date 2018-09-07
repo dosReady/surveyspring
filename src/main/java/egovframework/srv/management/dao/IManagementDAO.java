@@ -13,15 +13,15 @@ public interface IManagementDAO {
 	public List<EgovMap> srvMstrList(Map<String,Object> map) throws Exception;
 	public void insertSrvMstr(Map<String,Object> map) throws Exception;
 	public void updateSrvMstr(Map<String,Object> map) throws Exception;
-	public void deleteSrvMstr(String srvMstrId) throws Exception;
+	public void deleteSrvMstr(Integer srvMstrId) throws Exception;
 	
 	public List<EgovMap> selectSrvMtritems(Map<String,Object> map) throws Exception;
 	public List<EgovMap> selectSrvItems(Map<String,Object> map) throws Exception;
 	
 	public void insertSrvMtritems(Map<String,Object> map) throws Exception;
-	public void deleteSrvMtritems(String srvMstrId) throws Exception;
+	public void deleteSrvMtritems(Integer srvMstrId) throws Exception;
 	
 	public void insertSrvitems(Map<String,Object> map) throws Exception;
-	public void deleteSrvItems(String srvMstrId) throws Exception;
+	public void deleteSrvItems(Integer srvMstrId) throws Exception;
 	
 }

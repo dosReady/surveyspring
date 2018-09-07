@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import egovframework.rte.psl.dataaccess.util.EgovMap;
 import egovframework.srv.response.service.ResponseService;
 
 @RestController
@@ -24,8 +25,15 @@ public class ResponseController {
 	
 	@RequestMapping(value="srvRespTotal")
 	public String totalResponse(@RequestBody Map<String,Object> map) throws Exception {
-		service.srvCount(map);
-		return "SUCCESS";
+		return service.srvCount(map);
 	}
+	
+	@RequestMapping(value="showStt")
+	public EgovMap showStt(@RequestBody Map<String,Object> map) throws Exception {
+		EgovMap result = service.showStt(map);
+		return result;
+	}
+	
+	
 
 }

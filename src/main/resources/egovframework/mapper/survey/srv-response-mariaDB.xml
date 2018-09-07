@@ -24,10 +24,18 @@
 			      )
 		]]>
 	</insert>
+	
+	<select id="countSrvRespns" parameterType="integer" resultType="integer">
+		<![CDATA[
+		    /* ResponseDAO.selectSrvRespns */
+			SELECT COUNT(*) FROM TN_SRV_RESPNS WHERE #{srvMstrId}
+		]]>
+	</select>
 
 
 	<insert id="insertRespnstt" parameterType="integer">
 		<![CDATA[
+			/* ResponseDAO.insertRespnstt */
 			INSERT INTO TN_SRV_RESPNSTT
 		  (
 		 	   SRV_MSTR_ID,
@@ -37,25 +45,84 @@
 		 	   SRV_RESPNSTT_CNT,
 		 	   SRV_RESPNSTT_TOTAL
 		  )
-		SELECT 
-		       A.SRV_MSTR_ID,
-		       A.SRV_MTRITEMS_ID,
-		       A.SRV_RESPNS_VALUE,
-		       A.SRV_RESPNS_CODE,
-		       COUNT(*) AS SRV_RESPNSTT_CNT,
-		       ( SELECT COUNT(*) FROM TN_SRV_RESPNS WHERE SRV_MSTR_ID = A.SRV_MSTR_ID AND SRV_MTRITEMS_ID = A.SRV_MTRITEMS_ID) AS SRV_RESPNSTT_TOTAL
-		  FROM TN_SRV_RESPNS A
-		 WHERE 1=1
-		   AND A.SRV_MSTR_ID = #{srvMstrId}
-		GROUP BY A.SRV_MSTR_ID, A.SRV_MTRITEMS_ID, A.SRV_RESPNS_VALUE, A.SRV_RESPNS_CODE
+		  SELECT 
+		  		A.SRV_MSTR_ID,
+		  		A.SRV_MTRITEMS_ID,
+		  		B.SRV_ITEMS_ID,
+		  		IFNULL(C.SRV_RESPNS_CODE,0) AS SRV_RESPNS_CODE,
+		  		COUNT(C.SRV_RESPNS_ID) AS SRV_RESPNSTT_CNT,
+		  		( SELECT COUNT(*) FROM TN_SRV_RESPNS WHERE SRV_MSTR_ID = A.SRV_MSTR_ID AND SRV_MTRITEMS_ID = A.SRV_MTRITEMS_ID) AS SRV_RESPNSTT_TOTAL
+		  	FROM TN_SRV_MTRITEMS A INNER JOIN TN_SRV_ITEMS B
+		  							       ON 1=1
+										  AND A.SRV_MSTR_ID = B.SRV_MSTR_ID	  									  
+		  								  AND A.SRV_MTRITEMS_ID = B.SRV_MTRITEMS_ID
+		  					  LEFT OUTER JOIN TN_SRV_RESPNS C
+		  					               ON 1=1
+		  					              AND B.SRV_MSTR_ID = C.SRV_MSTR_ID
+		  					              AND B.SRV_MTRITEMS_ID = C.SRV_MTRITEMS_ID
+		  					              AND B.SRV_ITEMS_ID = C.SRV_RESPNS_VALUE
+		   WHERE 1=1
+		     AND A.SRV_MSTR_ID = #{srvMstrId}
+		     AND A.SRV_MTRITEMS_TYPE = 0 -- 객관식만통계구현
+	       GROUP BY A.SRV_MSTR_ID, A.SRV_MTRITEMS_ID, A.SRV_MTRITEMS_TITLE, B.SRV_ITEMS_ID, B.SRV_ITEM_NM
 		]]>
 	</insert>
-
+	
+	<delete id="deleteRespns" parameterType="integer">
+		<![CDATA[
+		   	/* ResponseDAO.deleteRespns */
+			DELETE FROM TN_SRV_RESPNS WHERE SRV_MSTR_ID = #{srvMstrId}
+		]]>
+	</delete>
+	
 	<delete id="deleteRespnstt" parameterType="integer">
 		<![CDATA[
+		   	/* ResponseDAO.deleteRespnstt */
 			DELETE FROM TN_SRV_RESPNSTT WHERE SRV_MSTR_ID = #{srvMstrId}
 		]]>
 	</delete>
+	
+	<select id="selectSttObjLabel" parameterType="integer" resultType="egovMap">
+		<![CDATA[
+			/* ResponseDAO.selectSttObjLabel */
+			 SELECT 
+				A.SRV_MTRITEMS_ID,
+				B.SRV_MTRITEMS_TITLE
+			  FROM TN_SRV_RESPNSTT A,
+				   TN_SRV_MTRITEMS B
+			 WHERE 1=1
+			   AND A.SRV_MSTR_ID = B.SRV_MSTR_ID
+			   AND A.SRV_MTRITEMS_ID = B.SRV_MTRITEMS_ID
+			   AND A.SRV_MSTR_ID = #{srvMstrId}
+			   AND A.SRV_RESPNS_CODE = 0
+			 GROUP BY A.SRV_MTRITEMS_ID, B.SRV_MTRITEMS_TITLE
+		]]>
+	</select>
+	
+	<select id="selectSttObjData" parameterType="hashmap" resultType="egovMap">
+	    <![CDATA[
+	    	/* ResponseDAO.selectSttObjData */
+	    	SELECT 
+				A.SRV_MTRITEMS_ID,
+				B.SRV_MTRITEMS_TITLE,
+				C.SRV_ITEMS_ID,
+				C.SRV_ITEM_NM,
+				A.SRV_RESPNSTT_CNT,
+				A.SRV_RESPNSTT_TOTAL
+ 			 FROM TN_SRV_RESPNSTT A,
+					   TN_SRV_MTRITEMS B,
+					   TN_SRV_ITEMS C
+			 WHERE 1=1
+			   AND A.SRV_MSTR_ID = B.SRV_MSTR_ID
+			   AND A.SRV_MTRITEMS_ID = B.SRV_MTRITEMS_ID
+			   AND A.SRV_MSTR_ID = C.SRV_MSTR_ID
+			   AND A.SRV_MTRITEMS_ID = C.SRV_MTRITEMS_ID
+			   AND A.SRV_RESPNS_VALUE = C.SRV_ITEMS_ID
+			   AND A.SRV_MSTR_ID = #{srvMstrId}
+			   AND A.SRV_MTRITEMS_ID = #{srvMtritemsId}
+			   AND A.SRV_RESPNS_CODE = 0
+	    ]]>
+	</select>
 
 
 

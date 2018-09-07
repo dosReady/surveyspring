@@ -79,7 +79,7 @@
 		]]>
 	</update>
 
-	<delete id="deleteSrvMstr" parameterType="String">
+	<delete id="deleteSrvMstr" parameterType="integer">
 		<![CDATA[
 		    /* ManagementDAO.deleteSrvMstr */
 			DELETE FROM TN_SRV_MSTR WHERE SRV_MSTR_ID 	=	#{srvMstrId}
@@ -140,7 +140,7 @@
 		]]>
 	</insert>
 
-	<delete id="deleteSrvMtritems" parameterType="String">
+	<delete id="deleteSrvMtritems" parameterType="integer">
 		<![CDATA[
 			/* ManagementDAO.deleteSrvMtritems */
 			DELETE FROM TN_SRV_MTRITEMS  
@@ -172,7 +172,7 @@
 		]]>
 	</insert>
 	
-	<delete id="deleteSrvItems" parameterType="String">
+	<delete id="deleteSrvItems" parameterType="integer">
 		<![CDATA[
 			/* ManagementDAO.deleteSrvItems */
 			DELETE FROM TN_SRV_ITEMS

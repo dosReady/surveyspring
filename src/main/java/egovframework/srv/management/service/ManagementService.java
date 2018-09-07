@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import egovframework.rte.psl.dataaccess.util.EgovMap;
 import egovframework.srv.management.dao.IManagementDAO;
+import egovframework.srv.response.dao.IResponseDAO;
 import egovframework.sym.common.helper.ICommonService;
 
 @Service
@@ -22,6 +23,9 @@ public class ManagementService  {
 	
 	@Autowired
 	public IManagementDAO dao;
+	
+	@Autowired
+	public IResponseDAO repDao;
 	
 	private JSONParser parser = new JSONParser();
 	
@@ -96,8 +100,13 @@ public class ManagementService  {
 		
 		
 		String srvMstrId = srvMstrMap.get("srvMstrId").toString();
-		dao.deleteSrvMtritems(srvMstrId);
-		dao.deleteSrvItems(srvMstrId);
+		dao.deleteSrvMtritems(Integer.parseInt(srvMstrId));
+		dao.deleteSrvItems(Integer.parseInt(srvMstrId));
+		
+		// 설문응답 삭제
+		repDao.deleteRespns(Integer.parseInt(srvMstrId));
+		// 설문 응답통계 삭제
+		repDao.deleteRespnstt(Integer.parseInt(srvMstrId));
 		
 		JSONArray srvMstItems = (JSONArray) parser.parse(paramMap.get("srvMtritems").toString());
 		
@@ -133,17 +142,21 @@ public class ManagementService  {
 	// 설문지 데이터 삭제
 	@SuppressWarnings("unchecked")
 	public void processDelete(Map<String,Object> map) throws Exception {
-		ArrayList<String> list =  (ArrayList<String>) map.get("value");
-		for (String srvMstrId : list) {
+		ArrayList<Integer> list =  (ArrayList<Integer>) map.get("value");
+		for (Integer srvMstrId : list) {
 			_processDelete(srvMstrId);
 		}
 	}
 	
 	// 설문지 데이터 삭제처리
-	protected void _processDelete(String srvMstrId) throws Exception {
+	protected void _processDelete(Integer srvMstrId) throws Exception {
 		dao.deleteSrvMstr(srvMstrId);
 		dao.deleteSrvMtritems(srvMstrId);
 		dao.deleteSrvItems(srvMstrId);
+		
+		// 응답 및 통계 데이터 삭제
+		repDao.deleteRespns(srvMstrId);
+		repDao.deleteRespnstt(srvMstrId);
 	}
 	
 	// 설문지 목록
